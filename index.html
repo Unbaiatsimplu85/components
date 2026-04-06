@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ComponentDB</title>
+<link rel="stylesheet" href="style.css" />
+
+<!-- ═══════════════════════════════════════════════════════════════
+  CONFIGURARE — Completează valorile de mai jos cu datele tale
+  ═══════════════════════════════════════════════════════════════ -->
+<script>
+  // ── RENDER BACKEND ────────────────────────────────────────────
+  // URL-ul serviciului tău de pe Render (fără slash la final)
+  // Backend-ul tău trebuie să aibă: GET /health → status 200
+  const RENDER_URL = "https://INLOCUIESTE.onrender.com";
+
+  // ── FIREBASE CONFIG ──────────────────────────────────────────
+  const FIREBASE_CONFIG = {
+    apiKey:            "INLOCUIESTE_CU_API_KEY",
+    authDomain:        "PROIECT.firebaseapp.com",
+    projectId:         "PROIECT",
+    storageBucket:     "PROIECT.appspot.com",
+    messagingSenderId: "INLOCUIESTE",
+    appId:             "INLOCUIESTE"
+  };
+
+  // ── MONGODB ATLAS DATA API ────────────────────────────────────
+  const MONGO_CONFIG = {
+    appId:      "INLOCUIESTE_CU_APP_ID",   // ex: data-abcde
+    apiKey:     "INLOCUIESTE_CU_API_KEY",
+    dataSource: "Cluster0",
+    database:   "componentdb",
+    collection: "components"
+  };
+
+  // ── ADMIN EMAIL ───────────────────────────────────────────────
+  const ADMIN_EMAIL = "admin@exemplu.com";
+
+  // ── WAKE-UP SETTINGS ─────────────────────────────────────────
+  const WAKEUP_SECONDS  = 60;
+  const PING_INTERVAL_S = 4;
+</script>
+</head>
+<body>
+
+<!-- ══════════ WAKE-UP SCREEN ══════════ -->
+<div id="wakeup-screen">
+  <div class="wu-logo">COMPONENT<span>DB</span></div>
+
+  <div id="wu-counting-area">
+    <div class="wu-ring-wrap">
+      <svg viewBox="0 0 190 190" xmlns="http://www.w3.org/2000/svg">
+        <circle class="wu-ring-bg" cx="95" cy="95" r="85"/>
+        <circle id="wu-arc" class="wu-ring-fg" cx="95" cy="95" r="85"/>
+      </svg>
+      <div class="wu-center">
+        <div class="wu-num" id="wu-num">60</div>
+        <div class="wu-sec" id="wu-sec-label">SECUNDE</div>
+      </div>
+    </div>
+
+    <div class="wu-title">Se pornește serverul...</div>
+    <div class="wu-sub">
+      Serverul este în repaus după inactivitate.<br>
+      Verificăm automat și te redirecționăm imediat ce devine disponibil.
+    </div>
+
+    <div class="wu-log" id="wu-log"></div>
+
+    <div class="wu-ready" id="wu-ready">
+      <div class="wu-ready-dot"></div>
+      SERVER ACTIV — SE DESCHIDE...
+    </div>
+  </div>
+
+  <div class="wu-timeout" id="wu-timeout">
+    <div class="wu-timeout-icon">⏱️</div>
+    <div class="wu-timeout-title">SERVERUL DUREAZĂ MAI MULT</div>
+    <div class="wu-timeout-msg">
+      Nu am primit răspuns în 60 de secunde.<br>
+      Poate fi o întârziere temporară — încearcă din nou.
+    </div>
+    <button class="btn btn-orange pill" id="wu-retry" style="margin-top:14px">
+      ↺ &nbsp;ÎNCEARCĂ DIN NOU
+    </button>
+  </div>
+</div>
+
+<!-- ══════════ LOGIN ══════════ -->
+<div class="login-shell" id="page-login">
+  <div class="login-card">
+    <div class="login-logo">ComponentDB<span>_</span></div>
+    <div class="login-sub">Panou de administrare — acces restricționat</div>
+    <div class="login-err" id="login-err"></div>
+    <div class="field">
+      <label>📧 &nbsp;EMAIL</label>
+      <input type="email" id="login-email" placeholder="admin@exemplu.com" autocomplete="username"/>
+    </div>
+    <div class="field">
+      <label>🔒 &nbsp;PAROLĂ</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
+    <button class="btn btn-blue pill" id="login-btn" style="width:100%;margin-top:10px;font-size:.85rem;padding:14px">
+      🚀 &nbsp;INTRĂ ÎN CONT
+    </button>
+    <div style="text-align:center;margin-top:20px">
+      <a href="#user" class="back-link">← Înapoi la căutare</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ USER / SEARCH PAGE ══════════ -->
+<div id="page-user" class="page">
+  <header>
+    <a class="logo" href="#user">Component<span>DB</span></a>
+    <nav>
+      <a href="#user" class="active">🔍 Căutare</a>
+      <a href="#admin">⚙️ Admin</a>
+    </nav>
+  </header>
+  <main>
+    <h1 class="page-title">// Căutare componente</h1>
+    <p class="page-subtitle">Caută după orice secvență de litere — parțial sau complet</p>
+
+    <div class="search-wrap">
+      <input type="text" id="search-input" placeholder="ex: GHSF, HSF, GH..."/>
+      <button class="btn btn-cyan pill" id="search-btn">🔍 &nbsp;CAUTĂ</button>
+    </div>
+    <div id="search-results"></div>
+  </main>
+</div>
+
+<!-- ══════════ ADMIN PAGE ══════════ -->
+<div id="page-admin" class="page">
+  <header>
+    <a class="logo" href="#user">Component<span>DB</span></a>
+    <nav>
+      <a href="#user">🔍 Căutare</a>
+      <a href="#admin" class="active">⚙️ Admin</a>
+      <button class="btn btn-purple-outline" id="logout-btn" style="padding:7px 16px;font-size:.74rem;border-radius:20px">
+        🚪 Deconectare
+      </button>
+    </nav>
+  </header>
+  <main>
+    <h1 class="page-title">// Panou admin</h1>
+    <p class="page-subtitle">Adaugă sau șterge componente din baza de date</p>
+
+    <div class="setup-banner" id="setup-banner">
+      ⚠️ <strong>CONFIGURARE NECESARĂ</strong> —
+      Înlocuiește valorile din secțiunea CONFIG din <code>index.html</code>.
+    </div>
+
+    <div class="card">
+      <div class="card-title">➕ &nbsp;Adaugă componentă nouă</div>
+      <div class="field">
+        <label>NUME COMPONENTĂ</label>
+        <input type="text" id="add-name" placeholder="ex: Componenta 1"/>
+      </div>
+      <div class="field">
+        <label>DETALII</label>
+        <input type="text" id="add-details" placeholder="ex: GHSF — Descriere..."/>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-green pill" id="add-btn">✚ &nbsp;ADAUGĂ ÎN BAZĂ</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        📦 &nbsp;Componente existente
+        <span class="count-badge" id="comp-count">0</span>
+      </div>
+      <div id="admin-list">
+        <div class="empty-state"><span class="icon">📭</span>Nicio componentă în bază</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toasts"></div>
+
+<!-- Firebase SDKs -->
+<script type="module" src="app.js"></script>
+</body>
+</html>
