@@ -1,10 +1,13 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBw1IvxNIbBQ1DAFOqM-lowwZuzN4Fvjkw",
-  authDomain: "smd-components-67a54.firebaseapp.com",
-  projectId: "smd-components-67a54",
-  storageBucket: "smd-components-67a54.firebasestorage.app",
-  messagingSenderId: "112939372508",
-  appId: "1:112939372508:web:fc83a7d9499661a7bf8919",
-  measurementId: "G-RWW9RYJV7V"
-};
+{
+  "type": "service_account",
+  "project_id": "smd-components-67a54",
+  "private_key_id": "dd59dd69e2dea2011dfa02e7731bec171b9fb796",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCu5F5AsbOJPA6o\nDorrPxuFSjg74rxLo35zY8C9DG1WjtwiW4fWF5m+T2KkY+OGi/DuaSfP7zi89u2O\naT2Yb1aaX90vqsxpmR0qMfYDU/rogZA8F2o+6eUrp0zPbMlfk4tjL1RogRoXH1bu\n7TuRD378OY0FOjYDagT8BraaaOu0ooSIccJ1Or4lz3lgtfDWFJqz+MzuZW4ONgIr\n718uW9RNYRk2oXWULmguKmvTJ5XOnlnk7nZ1wgAkqRjxSIEz859XF9w7bUTwVOcD\nKXYWFT4GJ3ipTeT/nSAC5H6CEu3hY2zDjWWfrS8O+eK/PsPAgsEIzTDvNoV6/L5u\nkgxhQRXZAgMBAAECggEABhRT5uuObj8vUr3zrAcE78KTVxiT+0ye/weZCfFKRTOg\n2RRlscZe/qevif+bZ4BKkx0GaGLcTexG+Hf1z0xSfjoGHCuzoJmVExQKxVWYX5fu\nYbpeI/r5L4XopH63dsowEpXw+ROAysw490P5mbqoSz/8ZBHAkiiPrQuWMiKiy+P6\nIIJ8fcdWWeMJ/U6/d/BeA1EkKkxanIrzZ3VlRvtTBdeWfct+RFE9rUpJFVpvvK0w\nS+kkK/SqpfI4czK7o8g9WxBxHV/C8px2aZFBGGlXms2c4b7DsDigE0R7odh4wfiO\ndEVhzFpZmeFokbED0m+fUgD2rSeSyEdvcH0Z0EVkAQKBgQDZEztBjeMlpif6VldZ\nZXJeB6uxlrY2/Se+9OPp3qJhD+I5ZJg0C6+Hv2tER1YPt11IA8ZZo4zprtmS5FLO\ns6SZsKyb+i65wH26Qu3WRWRkV0myRcycR9+tQSo0LaOppPrrItLHadRJ5dFQ0xd2\nW45DENi8JXGxbgKUc3hGvStJ2QKBgQDOQLxo925HzblLDpztd/wK5i8iHqq+jt1N\nS/DJB3UDsPJQcg6kmOpOWBRjv57G9aYf2EITV8C95cNXwxT7uYGPeDpuz+NGTWs1\nrmOVLWRAjvEjdrC6HizOB6GbjX6Ub0cnbPiyRUgp69gEqIJvdoUEaKlM7LBXY6mj\nXc1IPzisAQKBgAkDPGWXX4PzpxtEtHG4vYvb46wG5t/XmOvbvQ67uKAxCaJ6Y7td\ndNc9AlYeZBtY8J2J0pVsLfCR2uS3aBy+5qme5TvAomoB7PZryvYngWiNGzk0nq8q\naMYHu5nY/z+O4wAaPQgcg7zhttQVP5chbAGq1GTTZSoJuD+zn53IQuDZAoGBAJyI\n3zXfDDCsvwNrDMjhtkVjW8ROeBH2BZljmFRKN5HcmptZZSmg8LsS+C6YQN4Jk9I5\nZDSf9iVpmu8hnOxLZzxG6DovxvMVUNfGCcgvUhX5JqResVQgEKsxeYLASaBIMD2I\n49sQ3+sJFsK6TXxg/CVTdaJvRIqeliHp0CIT8WQBAoGASR96p5ECtn91uA3ADQaF\nY1/GR4Fmhy7fLGJycPUAuCAGgISBARixzVwb3CNz39/KE7ShoCxEY/iJDin5c9xP\ngaAC5oPB8N6gtfgYzsVH/a1s6RwcMSJdtVxYF/GHPJ6lM2OjLLh14/s8Nmj0+oW9\nyV3eoKqT9eLurStb3PMqklY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@smd-components-67a54.iam.gserviceaccount.com",
+  "client_id": "103302013173575036916",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40smd-components-67a54.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
