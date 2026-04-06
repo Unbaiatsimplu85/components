@@ -1,1 +1,30 @@
 
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Căutare piese</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="loading-screen">
+            <h2>Se verifică disponibilitatea serverului...</h2>
+            <div id="timer">60</div>
+            <p>Secunde rămase</p>
+            <button id="retryBtn" style="display:none;">Reîncearcă</button>
+        </div>
+        <div id="main-app" style="display:none;">
+            <h1>Catalog piese auto</h1>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ex: piesă, pies, piesă1, GHSF...">
+                <button id="searchBtn">Caută</button>
+            </div>
+            <div id="results"></div>
+            <p><em>Sugestie: poți căuta substring - de exemplu „pie” va găsi „piesa1”, „piesa2”.</em></p>
+        </div>
+    </div>
+    <script src="/js/user.js"></script>
+</body>
+</html>
