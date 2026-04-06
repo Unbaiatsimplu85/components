@@ -1,6 +1,5 @@
-
-// Configurare backend URL (Render)
-const API_BASE = window.location.origin; // același server
+// Configurare backend URL (același server)
+const API_BASE = window.location.origin;
 
 let wakeupInterval = null;
 let countdown = 60;
@@ -16,14 +15,12 @@ async function checkHealth() {
     try {
         const response = await fetch(`${API_BASE}/api/health`);
         if (response.ok) {
-            // Server activ
             if (!serverReady) {
                 serverReady = true;
                 clearInterval(wakeupInterval);
                 loadingScreen.style.display = 'none';
                 mainApp.style.display = 'block';
-                // Încarcă inițial lista de piese (opțional)
-                await loadAllPiese();
+                // NU mai încărcăm nicio piesă automat
             }
             return true;
         }
@@ -39,15 +36,12 @@ function startWakeup() {
     timerDiv.innerText = secondsLeft;
     serverReady = false;
 
-    // Încercare imediată
     checkHealth().then(ready => {
         if (ready) return;
-        // Dacă nu e gata, pornim intervalul
         wakeupInterval = setInterval(async () => {
             secondsLeft--;
             timerDiv.innerText = secondsLeft;
             if (secondsLeft <= 0) {
-                // Timpul a expirat
                 clearInterval(wakeupInterval);
                 timerDiv.innerText = "0";
                 retryBtn.style.display = 'block';
@@ -72,26 +66,10 @@ retryBtn.addEventListener('click', () => {
 // Pornim procesul
 startWakeup();
 
-// --- Funcționalitate căutare ---
+// --- Funcționalitate căutare (fără afișare inițială) ---
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const resultsDiv = document.getElementById('results');
-
-async function loadAllPiese() {
-    // opțional: poți afișa toate piesele la început
-    const res = await fetch(`${API_BASE}/api/piese`);
-    const data = await res.json();
-    if (data.length === 0) {
-        resultsDiv.innerHTML = '<p>Nu există piese încă.</p>';
-    } else {
-        let html = '<ul>';
-        data.forEach(p => {
-            html += `<li><strong>${escapeHtml(p.nume)}</strong>: ${escapeHtml(p.detalii)}</li>`;
-        });
-        html += '</ul>';
-        resultsDiv.innerHTML = html;
-    }
-}
 
 async function searchPiese() {
     const query = searchInput.value.trim();
