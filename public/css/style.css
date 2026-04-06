@@ -1,12 +1,333 @@
+/* ===== VARIABILE ===== */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #28a745, #20c997);
+    --danger-gradient: linear-gradient(135deg, #dc3545, #c82333);
+    --warning-gradient: linear-gradient(135deg, #ffc107, #ff9f00);
+    --info-gradient: linear-gradient(135deg, #17a2b8, #138496);
+    --search-gradient: linear-gradient(135deg, #fd7e14, #dc3545);
+    --dark-gradient: linear-gradient(135deg, #6c757d, #343a40);
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.2);
+    --shadow-lg: 0 15px 30px rgba(0,0,0,0.3);
+    --border-radius: 16px;
+    --border-radius-sm: 12px;
+}
 
-/* Adaugă stiluri pentru butoanele din admin */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Poppins', 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(5px);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+}
+
+h1 {
+    text-align: center;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h2 {
+    color: #333;
+    margin: 20px 0 15px;
+    font-weight: 600;
+    border-left: 5px solid #667eea;
+    padding-left: 15px;
+}
+
+/* ===== INPUTURI ===== */
+input, button {
+    padding: 12px 18px;
+    margin: 8px 0;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+input {
+    background: #f9f9ff;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.2);
+    background: white;
+}
+
+/* ===== BUTOANE GENERALE ===== */
+button {
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    background: var(--dark-gradient);
+    color: white;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+button:active::after {
+    width: 100%;
+    height: 100%;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Butoane specifice */
+#loginBtn {
+    background: var(--success-gradient);
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 14px;
+}
+
+#addBtn {
+    background: var(--success-gradient);
+}
+
+.delete-btn, #deleteBtn {
+    background: var(--danger-gradient) !important;
+}
+
 .edit-btn {
-    background: linear-gradient(135deg, #ffc107, #ff9f00);
-    margin-right: 5px;
+    background: var(--warning-gradient) !important;
+    color: #333 !important;
 }
-.delete-btn {
-    background: linear-gradient(135deg, #dc3545, #c82333);
+
+#searchBtn {
+    background: var(--search-gradient);
+    min-width: 100px;
 }
+
+#logoutBtn {
+    background: var(--dark-gradient);
+    margin-bottom: 20px;
+    float: right;
+}
+
 #cancelBtn {
     background: #6c757d;
+}
+
+/* Buton reîncercare (cronometru) */
+#retryBtn {
+    background: var(--info-gradient);
+    padding: 12px 25px;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+/* ===== CASETA DE CĂUTARE ===== */
+.search-box {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    font-size: 1.1rem;
+    padding: 14px 20px;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102,126,234,0.2);
+}
+
+.search-box button {
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 1rem;
+}
+
+/* ===== LISTA DE REZULTATE / COMPONENTE ===== */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: #f8f9ff;
+    margin: 12px 0;
+    padding: 18px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 6px solid #667eea;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+li:hover {
+    transform: translateX(8px);
+    background: #ffffff;
+    box-shadow: var(--shadow-md);
+}
+
+li strong {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+li div:first-child {
+    flex: 1;
+}
+
+li div button {
+    margin-left: 8px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+/* ===== CRONOMETRU ===== */
+#loading-screen {
+    text-align: center;
+    padding: 40px;
+}
+
+#timer {
+    font-size: 5rem;
+    font-weight: bold;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin: 20px 0;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ===== MESAJE ===== */
+.error, #auth-error, #add-message, #message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: center;
+    background: #ffe6e6;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#add-message.success, #message.success {
+    color: #28a745;
+    background: #e6ffe6;
+}
+
+/* ===== ADMIN PANEL ===== */
+#admin-panel {
+    clear: both;
+}
+
+#editId {
+    display: inline-block;
+    background: #e9ecef;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    li div button {
+        margin-left: 0;
+        margin-right: 8px;
+    }
+    .search-box {
+        flex-direction: column;
+    }
+    .search-box button {
+        width: 100%;
+    }
+    #logoutBtn {
+        float: none;
+        width: 100%;
+        margin-bottom: 15px;
+    }
 }
