@@ -1,1 +1,12 @@
 
+/* Adaugă stiluri pentru butoanele din admin */
+.edit-btn {
+    background: linear-gradient(135deg, #ffc107, #ff9f00);
+    margin-right: 5px;
+}
+.delete-btn {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+}
+#cancelBtn {
+    background: #6c757d;
+}
