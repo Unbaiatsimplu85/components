@@ -3,12 +3,13 @@ import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from
 
 // Înlocuiește cu datele tale din Firebase (configurația web)
 const firebaseConfig = {
-    apiKey: "AIzaSy...",
-    authDomain: "proiectul-tau.firebaseapp.com",
-    projectId: "proiectul-tau",
-    storageBucket: "proiectul-tau.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:..."
+  apiKey: "AIzaSyBw1IvxNIbBQ1DAFOqM-lowwZuzN4Fvjkw",
+  authDomain: "smd-components-67a54.firebaseapp.com",
+  projectId: "smd-components-67a54",
+  storageBucket: "smd-components-67a54.firebasestorage.app",
+  messagingSenderId: "112939372508",
+  appId: "1:112939372508:web:fc83a7d9499661a7bf8919",
+  measurementId: "G-RWW9RYJV7V"
 };
 
 const app = initializeApp(firebaseConfig);
