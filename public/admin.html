@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Gestionare piese</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="module" src="/js/admin.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Panou Admin</h1>
+    <div id="auth-section">
+        <h2>Autentificare</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Parolă">
+        <button id="loginBtn">Login</button>
+        <div id="auth-error" class="error"></div>
+    </div>
+
+    <div id="admin-panel" style="display:none;">
+        <button id="logoutBtn">Deconectare</button>
+        <h2>Adaugă / Editează piesă</h2>
+        <input type="text" id="piesaNume" placeholder="Nume piesă">
+        <input type="text" id="piesaDetalii" placeholder="Detalii">
+        <div>
+            <button id="addBtn">Adaugă</button>
+            <button id="cancelBtn" style="background:#6c757d;">Renunță</button>
+        </div>
+        <div id="editId" style="display:none;"></div>
+        <div id="message"></div>
+
+        <h2>Lista pieselor existente</h2>
+        <ul id="piese-list"></ul>
+    </div>
+</div>
+</body>
+</html>
